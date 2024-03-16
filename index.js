@@ -27,6 +27,7 @@ async function run() {
 
 const UserCollection = client.db('diptosikhaDB').collection('users');
 const programCollection = client.db('diptosikhaDB').collection('programs');
+const donationCollection = client.db('diptosikhaDB').collection('donations');
 
 
   //user data handle
@@ -122,8 +123,56 @@ const programCollection = client.db('diptosikhaDB').collection('programs');
     res.send(result);
    })
 
+ 
 
+  //Donations server 
 
+  app.get('/donations', async(req, res) =>{
+    const cursor = donationCollection.find()
+    const result = await cursor.toArray()
+    res.send(result);
+   })
+   
+   app.get('/donations/:id', async(req, res) =>{
+       const id = req.params.id;
+       const query = {_id: new ObjectId(id)}
+       const result = await donationCollection.findOne(query);
+       res.send(result);
+      })
+
+   app.post('/donations',async(req, res)=>{
+     const user = req.body;
+     const result = await donationCollection.insertOne(user);
+     res.send(result);
+   })
+
+   app.put('/donations/:id',async(req, res)=>{
+     const id= req.params.id;
+     const donations = req.body;
+     const filter = {_id: new ObjectId(id)}
+     const options = {upsert: true}
+     const updatedPrograms={
+       $set:{
+        title:donations.title,
+        date:donations.date,
+        img:donations.img,
+        cost:donations.cost,
+        description:donations.description,
+        author:donations.author,
+        imgtitle:donations.imgtitle,
+        sector:donations.sector,
+       }
+     }
+     const result = await donationCollection.updateOne(filter,updatedPrograms,options);
+     res.send(result);
+   })
+   
+   app.delete('/donations/:id', async(req, res) =>{
+    const id = req.params.id;
+    const query = {_id: new ObjectId(id)}
+    const result = await donationCollection.deleteOne(query);
+    res.send(result);
+   })
 
 
 
