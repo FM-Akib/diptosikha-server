@@ -30,7 +30,8 @@ const programCollection = client.db('diptosikhaDB').collection('programs');
 const donationCollection = client.db('diptosikhaDB').collection('donations');
 
 
-  //user data handle
+  //user server - database handle
+
     app.get('/users', async(req, res) =>{
      const cursor = UserCollection.find()
      const result = await cursor.toArray()
@@ -74,7 +75,7 @@ const donationCollection = client.db('diptosikhaDB').collection('donations');
 
 
 
-  //programs database handle
+  //programs server - database handle
 
   app.get('/programs', async(req, res) =>{
     const cursor = programCollection.find()
@@ -125,7 +126,7 @@ const donationCollection = client.db('diptosikhaDB').collection('donations');
 
  
 
-  //Donations server 
+  //Donations server - database connection
 
   app.get('/donations', async(req, res) =>{
     const cursor = donationCollection.find()
