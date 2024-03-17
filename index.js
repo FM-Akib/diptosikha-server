@@ -154,14 +154,13 @@ const donationCollection = client.db('diptosikhaDB').collection('donations');
      const options = {upsert: true}
      const updatedPrograms={
        $set:{
-        title:donations.title,
-        date:donations.date,
-        img:donations.img,
-        cost:donations.cost,
-        description:donations.description,
-        author:donations.author,
-        imgtitle:donations.imgtitle,
-        sector:donations.sector,
+        title:donations.name,
+        date:donations.mobile,
+        img:donations.email,
+        cost:donations.amount,
+        description:donations.date,
+        author:donations.donationOn,
+        imgtitle:donations.trxID
        }
      }
      const result = await donationCollection.updateOne(filter,updatedPrograms,options);
