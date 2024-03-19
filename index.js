@@ -67,6 +67,7 @@ const donationCollection = client.db('diptosikhaDB').collection('donations');
           facebook:user.facebook,
           education:user.education,
           lastDonate:user.lastDonate,
+          address:user.address,
         }
       }
       const result = await UserCollection.updateOne(filter,updatedUser,options);
